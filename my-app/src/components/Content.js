@@ -11,6 +11,7 @@ export class Content extends Component {
 
         this.state = {
             isLoaded: false,
+            posts: [],
         }
     }
     
@@ -18,8 +19,23 @@ export class Content extends Component {
         setTimeout(() => {
             this.setState({
                 isLoaded: true,
+                posts: savedPosts,
             })
         }, 3000)
+    }
+
+    handleChange = (event) => {
+        // Capture input and save name
+        const name = event.target.value.toLowerCase();
+        // Filter savedPosts and save in new const. Convert to lower case.
+        const filteredPosts = savedPosts.filter((post) => {
+            return post.name.toLowerCase().includes(name);
+        })
+        
+        // Set state of posts to new const of filtered posts.
+        this.setState({
+            posts: filteredPosts
+        })
     }
 
 
@@ -29,6 +45,11 @@ export class Content extends Component {
                 
                 <div className={css.TitleBar}>
                     <h1>My Photos</h1>
+                    <form>
+                        <label htmlFor='searchinput'>Search</label>
+                        <input type="search" id="searchinput" placeholder="By Author" onChange={this.handleChange} />
+                        <h4>posts found: {this.state.posts.length}</h4>
+                    </form>
                 </div>
 
                 <div className={css.SearchResults}>
@@ -53,9 +74,14 @@ export class Content extends Component {
                     <Loader /> */}
                     {
                         this.state.isLoaded ?
-                        <PostItem savedPosts={savedPosts} />
+                        <PostItem savedPosts={this.state.posts} />
                         : <Loader />
                     }
+                    {/* {
+                        this.state.isLoaded ?
+                        <PostItem savedPosts={savedPosts} />
+                        : <Loader />
+                    } */}
                 </div>
             </div>
         )
