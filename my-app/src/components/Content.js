@@ -48,7 +48,7 @@ export class Content extends Component {
                     <form>
                         <label htmlFor='searchinput'>Search</label>
                         <input type="search" id="searchinput" placeholder="By Author" onChange={this.handleChange} />
-                        <h4>posts found: {this.state.posts.length}</h4>
+                        <h4>Posts found: {this.state.posts.length}</h4>
                     </form>
                 </div>
 
